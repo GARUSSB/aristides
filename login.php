@@ -14,7 +14,7 @@ if(isset($_SESSION['user'])) header("Location:main.php");
 	<br>
 	<header>
 		<hgroup>
-			<h1><img id="headimg" src="bar_gob2.png"><img src="logotrans2.png" width="60px" height="75px"></h1> <br>
+			<h1><img id="headimg" src="bar_gob2.png"><img src="static/img/logotrans2.png" width="60px" height="75px"></h1> <br>
 		</hgroup>
 	</header>
 	<br>
