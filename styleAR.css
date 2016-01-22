@@ -38,12 +38,12 @@ header hgroup h1 {
   margin-right: 120px;
 }
 
-div {
+.form-container {
   background-color: #FFFFFF;
   padding: 1px 0 15px 0;
-  margin-right: 480px;
-  margin-left: 480px;
   border-radius: 6px;
+  width: 35%;
+  margin: auto;
 }
 
 h1 {

@@ -14,21 +14,21 @@ if(isset($_SESSION['user'])) header("Location:main.php");
 	<br>
 	<header>
 		<hgroup>
-			<h1><img id="headimg" src="static/img/bar_gob2.png"><img src="static/img/logotrans2.png" width="60px" height="75px"></h1> <br>
+			<h1 style="height:70px"><img id="headimg" style="width:95%;height:100%" src="static/img/bar_gob2.png"><img src="static/img/logotrans2.png" width="5%" height="100%"></h1> <br>
 		</hgroup>
 	</header>
 	<br>
 	<br>
-	<div>
-		<h1>Iniciar Sesión</h1>
+	<div class="form-container">
+		<h2>Iniciar Sesión</h2>
 			<!--show the error message if the controller sets err=1 in the url query string-->
 		<?php if (@$_GET['err'] == 1) { ?>
 			<div class="error-text">Login Incorrect. Please try again</div>
 		<?php } ?>
 		<form method="POST" action="index.php">
-			<a>Usuario: &nbsp</a>
+			<label>Usuario: </label>
 				<input type="text" id="user" name="user" placeholder="Ej: Gabriel Rivero" required/> <br>
-			<a>Contraseña: &nbsp</a>
+			<label>Contraseña: </label>
 				<input type="password" id="pass" name="pass" placeholder="Ej: 12345" required/> <br>
 			<input type="submit" id="button" name="op" value="Entrar"/>  
 		</form>
