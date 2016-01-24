@@ -14,22 +14,26 @@ if(isset($_SESSION['user'])) header("Location:main.php");
 	<br>
 	<header>
 		<hgroup>
-			<h1 style="height:70px"><img id="headimg" style="width:95%;height:100%" src="static/img/bar_gob2.png"><img src="static/img/logotrans2.png" width="5%" height="100%"></h1> <br>
+			<h1><img id="headimg" class="state-bar" src="static/img/bar_gob2.png"><img src="static/img/logotrans2.png" width="5%" height="100%"></h1> <br>
 		</hgroup>
 	</header>
 	<br>
 	<br>
 	<div class="form-container">
-		<h2>Iniciar Sesión</h2>
+		<h2 class="form-tittle">Iniciar Sesión</h2>
 			<!--show the error message if the controller sets err=1 in the url query string-->
 		<?php if (@$_GET['err'] == 1) { ?>
-			<div class="error-text">Login Incorrect. Please try again</div>
+			<div class="error-text">Usuario incorrecto, vuelva a intentar</div>
 		<?php } ?>
 		<form method="POST" action="index.php">
-			<label>Usuario: </label>
-				<input type="text" id="user" name="user" placeholder="Ej: Gabriel Rivero" required/> <br>
-			<label>Contraseña: </label>
-				<input type="password" id="pass" name="pass" placeholder="Ej: 12345" required/> <br>
+			<div class="form-group">
+				<label for="user" class="percent-width-50">Usuario: </label>
+				<input type="text" id="user" class="percent-width-50" name="user" placeholder="Ej: Gabriel Rivero" required/>
+			</div>
+			<div class="form-group">
+				<label for="pass" class="percent-width-50">Contraseña: </label>
+				<input type="password" class="percent-width-50" id="pass" name="pass" placeholder="Ej: 12345" required/> <br>
+			</div>
 			<input type="submit" id="button" name="op" value="Entrar"/>  
 		</form>
 	</div>	

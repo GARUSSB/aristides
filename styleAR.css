@@ -15,7 +15,6 @@ body {
   height: 100% ; 
   max-height: 100%; 
   background-color: #1F62AE;
-  height:100%;
 }
 
 article, aside, figure, footer, header, hgroup, nav, section, article { 
@@ -36,14 +35,29 @@ header hgroup h1 {
   text-shadow:0px 0px 30px rgba(0,0,0,0.5);
   margin-left: 120px;
   margin-right: 120px;
+  height:70px
 }
-
+.state-bar{
+  width:95%;
+  height:100%
+}
+.error-text{
+  color: #e74c3c;
+}
 .form-container {
   background-color: #FFFFFF;
-  padding: 1px 0 15px 0;
+  padding: 5px 5px 15px 5px;
   border-radius: 6px;
-  width: 35%;
+  max-width: 40%;
   margin: auto;
+}
+.percent-width-50{
+  width: 50%;
+}
+.form-group{
+  width: 100%;
+  padding: 5px;
+  margin: 10px 0px
 }
 
 h1 {
@@ -102,4 +116,15 @@ footer {
   font-size: 11px;
   font-weight: bold;
   letter-spacing: 1px;
+}
+@media (max-width: 700px) {
+  header hgroup h1{
+    height: 38px !important;
+  }
+  .form-tittle{
+    font-size: 1.4em;
+  }
+  .form-container{
+    font-size: 12px;
+  }
 }
