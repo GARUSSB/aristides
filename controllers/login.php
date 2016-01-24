@@ -8,13 +8,13 @@ if(isset($_SESSION['user'])) header("Location:main.php");
 	<title></title>
 	<meta lang="es">
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="styleAR.css" />
+	<link rel="stylesheet" type="text/css" href="../static/css/styleAR.css" />
 </head>
 <body>
 	<br>
 	<header>
 		<hgroup>
-			<h1><img id="headimg" class="state-bar" src="static/img/bar_gob2.png"><img src="static/img/logotrans2.png" width="5%" height="100%"></h1> <br>
+			<h1><img id="headimg" class="state-bar" src="../static/img/bar_gob2.png"><img src="../static/img/logotrans2.png" width="5%" height="100%"></h1> <br>
 		</hgroup>
 	</header>
 	<br>

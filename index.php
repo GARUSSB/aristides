@@ -1,6 +1,6 @@
 <?php 
-require_once('user_controller.inc.php');
-require_once('user_model.inc.php');
+require_once('controllers/user_controller.inc.php');
+require_once('models/user_model.inc.php');
 
 @$op = $_REQUEST['op'];
 
@@ -13,17 +13,17 @@ switch ($op) {
 		$password = $_POST['pass'];
 
 		if($user_controller->login($username, $password)) {
-			header("Location:main.php");
-		} else header("Location:login.php?err=1");
+			header("Location:controllers/main.php");
+		} else header("Location:controllers/login.php?err=1");
 		break;
 
 		case 'logout':
 		$user_controller->logout();
-		header("Location:login.php");
+		header("Location:controllers/login.php");
 		break;
 
 		default:
-			header("Location:login.php");
+			header("Location:controllers/login.php");
 		break;	
 }
  ?>

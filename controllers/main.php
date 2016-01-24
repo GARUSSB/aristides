@@ -1,5 +1,5 @@
 <?php 
-require_once('user_model.inc.php');
+require_once('../models/user_model.inc.php');
 //we want to redirect the user to the login if his session is expired/invalid
 session_start();
 if (!isset($_SESSION['user'])) {
