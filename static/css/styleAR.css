@@ -127,4 +127,28 @@ footer {
   .form-container{
     font-size: 12px;
   }
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 1000px;
+    height: 250px;
+    background-color: #1F62AE;
 }
+
+.flex-item {
+    background-color: cornflowerblue;
+    width: 170px;
+    height: 220px;
+    margin: 30px;
+}
+
+.logoutButton {
+  width: 150px;
+}
+
+.logout {
+  text-decoration: none;
+}  
