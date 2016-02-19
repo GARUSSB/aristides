@@ -25,7 +25,7 @@ if(isset($_SESSION['user'])) header("Location:main.php");
 		<?php if (@$_GET['err'] == 1) { ?>
 			<div class="error-text">Usuario incorrecto, vuelva a intentar</div>
 		<?php } ?>
-		<form method="POST" action="../index.php">
+		<form method="POST" action="/aristides/index.php">
 			<div class="form-group">
 				<label for="user" class="percent-width-50">Usuario: </label>
 				<input type="text" id="user" class="percent-width-50" name="user" placeholder="Ej: Gabriel Rivero" required/>

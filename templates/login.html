@@ -1,0 +1,23 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block css %}
+{% endblock %}  
+{% block content %}
+  <div class="form-container">
+		<h2 class="form-tittle">Iniciar Sesión</h2>		
+		<form method="POST" action="/aristides/index.php">
+			<div class="form-group">
+				<label for="user" class="percent-width-50">Usuario: </label>
+				<input type="text" id="user" class="percent-width-50" name="user" placeholder="Ej: Gabriel Rivero" required/>
+			</div>
+			<div class="form-group">
+				<label for="pass" class="percent-width-50">Contraseña: </label>
+				<input type="password" class="percent-width-50" id="pass" name="pass" placeholder="Ej: 12345" required/> <br>
+			</div>
+			<input type="submit" id="button" name="op" value="Entrar"/>  
+		</form>
+	</div>
+{% endblock %} 
+{% block js %}
+{% endblock %}
+
