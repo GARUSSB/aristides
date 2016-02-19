@@ -1,0 +1,155 @@
+@font-face
+{
+    font-family: 'proxima-nova';
+    src: url('ProximaNova-Reg.ttf');
+    font-weight: normal;
+    font-style: normal;
+ }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+	margin: 0 auto;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  height: 100% ; 
+  max-height: 100%; 
+  background-color: #1F62AE;
+}
+
+article, aside, figure, footer, header, hgroup, nav, section, article { 
+  display:block;
+}
+
+header, #banner, footer, nav, div
+{ margin-left: auto; 
+  margin-right: auto;
+  text-align: center;
+}
+
+header hgroup h1 {
+  border-bottom: solid;
+  padding-bottom: 10px;
+  border-width: 1px;
+  border-color: #e4e4e4;
+  text-shadow:0px 0px 30px rgba(0,0,0,0.5);
+  margin-left: 120px;
+  margin-right: 120px;
+  height:70px
+}
+.center{
+  text-align: center;
+}
+.state-bar{
+  width:95%;
+  height:100%
+}
+.error-text{
+  color: #e74c3c;
+}
+.form-container {
+  background-color: #FFFFFF;
+  padding: 5px 5px 15px 5px;
+  border-radius: 6px;
+  max-width: 40%;
+  margin: auto;
+}
+.percent-width-50{
+  width: 50%;
+}
+.form-group{
+  width: 100%;
+  padding: 5px;
+  margin: 10px 0px
+}
+
+h1 {
+  color
+}
+
+a {
+  color: #3a3737;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 2px;
+}
+
+form {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  color: #3a3737;
+}
+
+#user, #pass {
+  padding: 3px 0 3px 10px;
+  letter-spacing: 1px;
+  border-radius: 3px;
+}
+
+#pass {
+  margin-top: 10px;
+  margin-right: 27px;
+}
+
+#button {
+  color: #FFFFFF;
+  background-color: #1F62AE;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  padding: 5px;
+  width: 80px;
+  height: 35px;
+  letter-spacing: 1px;
+  border-radius: 2px;
+  text-shadow: 1px 1px 1px #1d1d1d;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 15px;
+}
+
+footer {
+  margin-top: 220px;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+@media (max-width: 700px) {
+  header hgroup h1{
+    height: 38px !important;
+  }
+  .form-tittle{
+    font-size: 1.4em;
+  }
+  .form-container{
+    font-size: 12px;
+  }
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 1000px;
+    height: 250px;
+    background-color: #1F62AE;
+}
+
+.flex-item {
+    background-color: cornflowerblue;
+    width: 170px;
+    height: 220px;
+    margin: 30px;
+}
+
+.logoutButton {
+  width: 150px;
+}
+
+.logout {
+  text-decoration: none;
+}  

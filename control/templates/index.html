@@ -1,0 +1,35 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block css %}
+{% endblock %}  
+{% block content %}
+  <div class="container">
+    <a href="#profile_set" data-toggle ="modal" class="btn btn-primary pull-right plus-btn"><span class="fa fa-user-plus"></span> Agregar personal</a>
+    <a href="#here" data-toggle ="modal" class="btn btn-primary pull-right plus-btn" data-toggle ="modal"><span class="fa fa-calendar-plus-o"></span> Ver inasistencias</a>
+    <table id="get_personal" class="display responsive nowrap"  width="100%">
+      <thead>
+        <tr>
+          <th><i class="fa fa-eye"></th>
+          <th> <i class="fa fa-calendar-plus-o"></i></th>
+          <th> <i class="fa fa-check"></i></th>
+          <th> <i class="fa fa-times"></i></th>
+          <th> <i class="fa fa-pencil"></i></th>
+          <th> Cedula</th>
+          <th> Nombre</th>
+          <th> Apellido</th>
+          <th> Telefono</th>
+          <th> Direnccion</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+{% include "personal/view.html" %}
+{% include "personal/set.html" %}
+{% include "asistencia/motivos.html" %}
+{% include "asistencia/condicion.html" %}
+{% endblock %} 
+{% block js %}
+  <script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
