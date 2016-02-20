@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^editar_inacistencia/', editar_inacistencia),
     url(r'^get_all_inacistencia/', get_all_inacistencia),
     url(r'^get_personal_inacistencia/', get_personal_inacistencia),
-    url(r'^', index.as_view()),
+    url(r'^$', index.as_view(), name= "index"),
 ]

@@ -11,6 +11,7 @@ from django.conf import settings as _settings
 from django.contrib.auth import login, logout, authenticate
 from django.core.mail import get_connection, send_mail, BadHeaderError
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_protect
 
 def set_cargos(request):
     mensaje = ''
@@ -33,25 +34,27 @@ def get_cargos(request):
         lista.append(dicc)
     result = json.dumps(lista, ensure_ascii=False)
     return HttpResponse(result, content_type='application/json; charset=utf-8')
+@csrf_protect
 def crear_personal(request):
     mensaje = ''
-    if not Personal.objects.filter(cedula=request.POST['cedula']).exists():
-        personal = Personal(
-            cedula=request.POST['cedula'],
-            nombres=request.POST['nombres'],
-            apellidos=request.POST['apellidos'],
-            telefono1=request.POST['telefono1'],
-            telefono2=request.POST['telefono2'],
-            direccion=request.POST['direccion'],
-            email=request.POST['email'],
-            sexo=request.POST['sexo'],
-            fecha_de_nacimiento=request.POST['fecha_de_nacimiento'],
-            cargo = request.POST['cargos'],
-        )
-        personal.save()
-        mensaje = 'Guardado'
-    else:
-        mensaje = 'Alumno Ya Existe'
+    if request.method == "POST":
+        if not Personal.objects.filter(cedula=request.POST['cedula']).exists():
+            personal = Personal(
+                cedula=request.POST['cedula'],
+                nombres=request.POST['nombre'],
+                apellidos=request.POST['apellido'],
+                telefono1=request.POST['telefono1'],
+                telefono2=request.POST['telefono2'],
+                direccion=request.POST['direccion'],
+                email=request.POST['email'],
+                sexo=request.POST['sexo'],
+                fecha_de_nacimiento=request.POST['fecha_de_nacimiento'],
+                cargo = request.POST['cargo'],
+            )
+            personal.save()
+            mensaje = 'Guardado'
+        else:
+            mensaje = 'Alumno Ya Existe'
     result = json.dumps(mensaje, ensure_ascii=False)
     return HttpResponse(result, content_type='application/json; charset=utf-8')
 
@@ -220,4 +223,5 @@ def get_personal_inacistencia(request):
 class index(TemplateView):
     template_name = 'index.html'
     def get(self, request, *args, **kwargs):
+        cargos = Cargo.objects.filter()
         return render_to_response(self.template_name, locals(), context_instance=RequestContext(request))
