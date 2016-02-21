@@ -5,8 +5,31 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h2 class="modal-title"><i class="fa fa-calendar"></i> Filtrado De Asistencias</h4>
             </div>
-            <form id="" class="form-horizontal">
+            <form id="filter" class="form-horizontal">
                 <div class="modal-body ">
+                    <div class="row" style="margin-bottom:10px">
+                        <div class="col-sm-3">
+                            <label for=""> Cargo:</label>
+                            <select name="cargo" id="cargos_filter">
+                                {% for cargo in cargos  %}
+                                    <option value="{{cargo}}"> {{cargo}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for=""> Año </label>
+                            <select name="year" id="">
+                                
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for=""> Mes</label>
+                            <input type="month" name="month">
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-primary" > <i class="fa fa-search"></i> </button>
+                        </div>
+                    </div>
                     <table id="get_asis_filter" class="display responsive nowrap"  width="100%">
                         <thead>
                             <tr>
@@ -21,9 +44,6 @@
                         <tbody>
                         </tbody>
                     </table>
-                </div>
-                <div class="modal-footer">
-                    
                 </div>
             </form>
         </div>

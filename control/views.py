@@ -28,10 +28,21 @@ def get_cargos(request):
     return HttpResponse(result, content_type='application/json; charset=utf-8')
 
 
-def delete_cargo():
+@csrf_protect
+def delete_cargo(request):
     message =''
-    cargos = Cargo.objects.filter(id=request.POST['id'])
+    cargos = Cargo.objects.get(id=request.POST['id'])
     cargos.delete()
+    message ='Borrado'
+    result = json.dumps(message, ensure_ascii=False)
+    return HttpResponse(result, content_type='application/json; charset=utf-8')
+
+
+@csrf_protect
+def delete_person(request):
+    message =''
+    personal = Personal.objects.get(id=request.POST['id'])
+    personal.delete()
     message ='Borrado'
     result = json.dumps(message, ensure_ascii=False)
     return HttpResponse(result, content_type='application/json; charset=utf-8')
@@ -51,6 +62,8 @@ def crear_cargos(request):
             mensaje = 'Cargo ya Existe'
     result = json.dumps(mensaje, ensure_ascii=False)
     return HttpResponse(result, content_type='application/json; charset=utf-8')
+
+
 def edit_cargos(request):
     message = ''
     cargo = Cargoargo.objects.filter(id=request.POST['id']).update(
@@ -171,9 +184,13 @@ def get_all_inacistencia(request):
     for x in personal:
         inacistencia = Inacistencia.objects.filter(
             personal=x,
-            fecha__year=request.POST["year"],
-            fecha__month=request.POST["month"],
         )
+        if request.POST.has_key('year'):
+            inacistencia =    inacistencia.filter(fecha__year=request.POST["year"])
+        if request.POST.has_key('cargo'):
+            inacistencia =    inacistencia.filter(cargo=request.POST["cargo"])
+        if request.POST.has_key('month'):
+            inacistencia =    inacistencia.filter(fecha__month=request.POST["month"])
         for y in inacistencia:
             dicc = {}
             dicc = {

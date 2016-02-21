@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^crear_personal/', crear_personal),
     url(r'^crear_cargos/', crear_cargos),
     url(r'^drop_cargos/', delete_cargo),
+    url(r'^drop_person/', delete_person),
     url(r'^editar_personal/', editar_personal),
     url(r'^get_all_personal/', get_all_personal),
     url(r'^get_personal/', get_personal),

@@ -35,12 +35,14 @@ $(document).ready(function() {
 	});
 	$('#personal_asis').on('show.bs.modal',get_personal_asis);
 	$('#job').on('show.bs.modal',get_cargo);
+	$('select').select2();
+	$('.date-picker').datepicker();
 });
 function set_person(){
-	data = $('#new_person').serialize();
+	data = $('#new_person input,#new_person select').serialize();
 	console.log(data);
 	$.ajax({
-		url: 'crear_personal/',
+		url: '/crear_personal/',
 		type: 'POST',
 		data: data,
 		beforeSend: function(xhr) {
@@ -50,10 +52,9 @@ function set_person(){
 	.done(function() {
 		OmegaNotify.success('Guardado Exitoso','');
 		get_all_personal();
-		$('#profile_set').modal('hide');
 	})
 	.fail(function() {
-		console.log("error");
+		OmegaNotify.fail('Error al guardar','');
 	})
 	.always(function() {
 		$('#profile_set').modal('hide');
@@ -85,7 +86,7 @@ function get_all_personal(){
 				arr.push('<a href="#motivos" data-toggle="modal" onclick="set_id('+el.id+')" ><i class="fa fa-check"></i></a>');
 				arr.push('<a href="#condicion" data-toggle="modal" onclick="set_id('+el.id+')" ><i class="fa fa-times"></i></a>');
 				arr.push('<a href="#profile_edit" data-toggle="modal" onclick="set_id('+el.id+')"><i class="fa fa-pencil"></i></a>');
-				arr.push('<a href="#profile_edit" data-toggle="modal" onclick="set_id('+el.id+')"><i class="fa fa-trash"></i></a>');
+				arr.push('<a href="#" onclick="drop_person('+el.id+')"><i class="fa fa-trash"></i></a>');
 				arr.push(el.cedula);
 				arr.push(el.nombres);
 				arr.push(el.apellidos);
@@ -97,6 +98,8 @@ function get_all_personal(){
 				arr.push(el.fecha_de_nacimiento);
 				table.fnAddData(arr);
 			});
+	}).fail(function(){
+		OmegaNotify.fail('Error al cargar datos','');
 	});
 }
 function get_personal_asis(){
@@ -143,6 +146,9 @@ function set_personal_asis(val){
 function set_id(id){
 	window.personalid= id;
 }
+function job_id(id){
+	window.jobid= id;
+}
 function set_job(){
 	data = $('#new_job').serialize();
 	$.ajax({
@@ -163,14 +169,19 @@ function set_job(){
 		})
 		.always(function() {
 		});
-
+}
+function edit_job () {
+	
+}
+function edit_person () {
+	
 }
 function get_cargo(){
 	$.getJSON('/get_cargos', function(json, textStatus) {
 		jobs.fnClearTable();
 		$.each(json, function(index, val) {
 			var arr= [];
-			arr.push('<i onclick="set_id('+val.id+')" class="fa fa-pencil"></i>');
+			arr.push('<i onclick="job_id('+val.id+')" data-dismiss="modal" class="fa fa-pencil"></i>');
 			arr.push('<i onclick="drop_job('+val.id+')" class="fa fa-trash"></i>');
 			arr.push(val.id);
 			arr.push(val.cargo);
@@ -180,7 +191,7 @@ function get_cargo(){
 }
 function drop_job(id){
 	$.ajax({
-		url: '/drop_cargos',
+		url: '/drop_cargos/',
 		type: 'POST',
 		data: {id: id},
 		beforeSend: function(xhr) {
@@ -197,4 +208,23 @@ function drop_job(id){
 		get_cargo();
 	});
 	
+}
+function drop_person(id){
+	OmegaNotify.confirm({
+			message:"",
+			description:"¿Seguro que desea eliminar esta persona?",
+			action:function(){
+				$.ajax({
+					url: '/drop_person/',
+					type: 'POST',
+					data: {id: id},
+					beforeSend: function(xhr) {
+		            	xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+		        	},
+				})
+				.done(function() {
+					get_all_personal();
+				});
+			}
+		});
 }

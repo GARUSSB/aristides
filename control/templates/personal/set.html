@@ -1,115 +1,111 @@
 <div class="modal fade" id="profile_set">
     <div class="modal-dialog width-cstm-modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h2> Añadir Personal</h2>
-            </div>
-            <div class="modal-body">    
-                <form id="new_person" class="form-horizontal" action="javascript:set_person()">
-                {% csrf_token %}
-                    <div class="row">
-                    <div class="col-sm-6 col-md-12">
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-12">
-                                <label>Cedula:</label> 
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="text" id="cedula" name="cedula" required/> 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-12">
-                                <label>Nombre:</label> 
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="text" id="nombre" name="nombre" required/> 
-                            </div>
-                                
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-12">
-                                <label>Apellido:</label> 
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="text" id="apellido" name="apellido" required/> 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-12">
-                                <label>Dirección:</label> 
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="textarea" id="direccion" name="direccion" required/> 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12 col-md-6">
-                                <label>Sexo:</label> 
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <input type="radio" name="sexo" value="Hombre" required>
-                                <label for="" style="margin-right: 4px">Hombre</label>
-                                <input type="radio" name="sexo" value="Mujer" required>
-                                <label for="">Mujer</label>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="col-sm-6 col-md-12">
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-12">
-                                <label>Fecha de nacimiento:</label> 
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="date" id="fecha_nacimiento" name="fecha_de_nacimiento" required/> 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-12">
-                                <label>Celular:</label> 
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="text" id="telefono1" name="telefono1" required/> 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-12">
-                                <label>Telefono:</label> 
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="text" id="telefono2" name="telefono2" required/> 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-12">
-                                <label>Email:</label> 
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="email" id="correo" name="email" required/> 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12 col-md-6">
-                                <label>Cargo:</label> 
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <select name="cargo" id="cargo">
-                                {% for cargo in cargos  %}
-                                    <option value="{{cargo}}"> {{cargo}}</option>
-                                {% endfor %}
-                                </select> 
-                            </div>
-                        </div>
-                    </div> 
-                        
-                    </div>
-                    
-                <div class="modal-footer">
-                    <input type="submit" id="button" name="op" value="Entrar"/> 
+            <form id="new_person" class="form-horizontal" action="javascript:set_person()">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2> Añadir Personal</h2>
                 </div>
-                
-                </form>
-            </div>
+                <div class="modal-body">    
+                        <div class="row">
+                            <div class="col-sm-6 col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label>Cedula:</label> 
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <input type="text" id="cedula" name="cedula" required/> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label>Nombre:</label> 
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <input type="text" id="nombre" name="nombre" required/> 
+                                    </div>
+                                        
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label>Apellido:</label> 
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <input type="text" id="apellido" name="apellido" required/> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label>Dirección:</label> 
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <input type="textarea" id="direccion" name="direccion" required/> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label>Sexo:</label> 
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <select name="sexo" required id="sexo">
+                                            <option value="1"> Hombre</option>
+                                            <option value="2"> Mujer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="col-sm-6 col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label>Fecha de nacimiento:</label> 
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <input type="text"  class="date-picker" id="fecha_nacimiento" name="fecha_de_nacimiento" data-date-format="yyyy-mm-dd" required/> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label>Celular:</label> 
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <input type="text" id="telefono1" name="telefono1" required/> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label>Telefono:</label> 
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <input type="text" id="telefono2" name="telefono2" required/> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label>Email:</label> 
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <input type="email" id="correo" name="email" required/> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label>Cargo:</label> 
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <select name="cargo" id="cargo">
+                                        {% for cargo in cargos  %}
+                                            <option value="{{cargo}}"> {{cargo}}</option>
+                                        {% endfor %}
+                                        </select> 
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" name="envio"/>Enviar</button> 
+                </div>
+            </form>
         </div>
     </div>
 </div>
