@@ -37,7 +37,13 @@ $(document).ready(function() {
 	$('#job').on('show.bs.modal',get_cargo);
 	$('select').select2();
 	$('.date-picker').datepicker();
+	$('#edit_cargo').on('show.bs.modal', set_input_job);
 });
+function set_input_job () {
+	$.getJSON('/get_job', {id: jobid}, function(json) {
+		$('#nombre_cargo').val(json.name);
+	});
+}
 function set_person(){
 	data = $('#new_person input,#new_person select').serialize();
 	console.log(data);
@@ -95,6 +101,7 @@ function get_all_personal(){
 				arr.push(el.direccion);
 				arr.push(el.email);
 				arr.push(el.sexo);
+				arr.push(el.cargo);
 				arr.push(el.fecha_de_nacimiento);
 				table.fnAddData(arr);
 			});
@@ -181,7 +188,7 @@ function get_cargo(){
 		jobs.fnClearTable();
 		$.each(json, function(index, val) {
 			var arr= [];
-			arr.push('<i onclick="job_id('+val.id+')" data-dismiss="modal" class="fa fa-pencil"></i>');
+			arr.push('<a href="#edit_cargo" onclick="job_id('+val.id+')" data-dismiss="modal" data-toggle="modal" ><i class="fa fa-pencil"></i></a>');
 			arr.push('<i onclick="drop_job('+val.id+')" class="fa fa-trash"></i>');
 			arr.push(val.id);
 			arr.push(val.cargo);

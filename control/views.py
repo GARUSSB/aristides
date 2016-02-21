@@ -241,4 +241,10 @@ class index(TemplateView):
     template_name = 'index.html'
     def get(self, request, *args, **kwargs):
         cargos = Cargo.objects.filter()
+        year = Inacistencia.objects.all()
+        lista =[]
+        for x in year:
+            if not x.fecha.year in lista:
+                lista.append(x.fecha.year)
+
         return render_to_response(self.template_name, locals(), context_instance=RequestContext(request))
