@@ -44,6 +44,9 @@ header hgroup h1 {
   width:95%;
   height:100%
 }
+.button-pane{
+  margin-bottom: 20px
+}
 .error-text{
   color: #e74c3c;
 }
@@ -61,10 +64,6 @@ header hgroup h1 {
   width: 100%;
   padding: 5px;
   margin: 10px 0px
-}
-
-h1 {
-  color
 }
 
 a {

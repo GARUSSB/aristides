@@ -1,0 +1,4 @@
+Django==1.9.2
+django-excel==0.0.4
+decorator==4.0.9
+django-suit==0.2.16

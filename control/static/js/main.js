@@ -1,30 +1,40 @@
 $(document).ready(function() {
-	var table = $('#get_personal').dataTable({
+	window.table = $('#get_personal').dataTable({
+		dom: 'Bfrtip',
+		 buttons: [
+            'excel', 'pdf', 'print'
+        ],
 		"columnDefs":[
 		{"className":"center","targets":[0,1,2,3,4]}
 		],
-		responsive: true
+		responsive: true,
 	});
-	new $.fn.dataTable.Responsive( table );
-	var table_personal = $('#table_personal').dataTable();
-	var date = new Date();
-	$.getJSON('/get_all_personal/',{"year": date.getFullYear(),"month":date.getMonth()}, function(json, textStatus) {
-			table.fnClearTable();
-			$.each(json,function(index, el) {
-				var arr = [];
-				arr.push('<a href="#personal_asis" data-toggle="modal" ><i class="fa fa-eye" data-id="'+el.id+'""></i></a>');
-				arr.push('<a href="#personal_view" data-toggle="modal" ><i class="fa fa-calendar-plus-o" data-id="'+el.id+'""></i></a>');
-				arr.push('<a href="#motivos" data-toggle="modal" ><i class="fa fa-check"></i></a>');
-				arr.push('<a href="#condicion" data-toggle="modal"><i class="fa fa-times"></i></a>');
-				arr.push('<i class="fa fa-pencil" data-id="'+el.id+'""></i>');
-				arr.push(el.cedula);
-				arr.push(el.nombres);
-				arr.push(el.apellidos);
-				arr.push(el.telefono1);
-				arr.push(el.direccion);
-				table.fnAddData(arr);
-			});
+	window.jobs = $('#get_job').dataTable({
+		responsive: true,
 	});
+	window.filter = $('#get_asis_filter').dataTable({
+		dom: 'Bfrtip',
+		 buttons: [
+            'excel', 'pdf', 'print'
+        ],
+		responsive: true,
+	});
+	window.personal_asis = $('#get_personal_asis').dataTable({
+		responsive: true,
+		dom: 'Bfrtip',
+		 buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+	});
+	get_all_personal();
+	new $.fn.dataTable.Responsive( personal_asis );
+	new $.fn.dataTable.Responsive( jobs );
+	$('.asistencia').on('click', function() {
+		var $val = $(this).data('value');
+		set_personal_asis($val);
+	});
+	$('#personal_asis').on('show.bs.modal',get_personal_asis);
+	$('#job').on('show.bs.modal',get_cargo);
 });
 function set_person(){
 	data = $('#new_person').serialize();
@@ -38,19 +48,21 @@ function set_person(){
         }
 	})
 	.done(function() {
-		console.log("success");
+		OmegaNotify.success('Guardado Exitoso','');
+		get_all_personal();
+		$('#profile_set').modal('hide');
 	})
 	.fail(function() {
 		console.log("error");
 	})
 	.always(function() {
-		console.log("complete");
+		$('#profile_set').modal('hide');
 	});
 	
 }
 function getCookie(name) {
     var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
+    if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
             var cookie = jQuery.trim(cookies[i]);
@@ -61,4 +73,128 @@ function getCookie(name) {
         }
     }
     return cookieValue;
+}
+function get_all_personal(){
+	new $.fn.dataTable.Responsive( table );
+	$.getJSON('/get_all_personal/', function(json, textStatus) {
+			table.fnClearTable();
+			$.each(json,function(index, el) {
+				var arr = [];
+				arr.push('<a href="#" data-toggle="modal" ><i class="fa fa-eye" data-id="'+el.id+'"></i></a>');
+				arr.push('<a href="#personal_asis" data-toggle="modal" onclick="set_id('+el.id+')" id="'+el.id+'" data-name="'+el.nombres+'"><i class="fa fa-calendar-plus-o" data-id="'+el.id+'""></i></a>');
+				arr.push('<a href="#motivos" data-toggle="modal" onclick="set_id('+el.id+')" ><i class="fa fa-check"></i></a>');
+				arr.push('<a href="#condicion" data-toggle="modal" onclick="set_id('+el.id+')" ><i class="fa fa-times"></i></a>');
+				arr.push('<a href="#profile_edit" data-toggle="modal" onclick="set_id('+el.id+')"><i class="fa fa-pencil"></i></a>');
+				arr.push('<a href="#profile_edit" data-toggle="modal" onclick="set_id('+el.id+')"><i class="fa fa-trash"></i></a>');
+				arr.push(el.cedula);
+				arr.push(el.nombres);
+				arr.push(el.apellidos);
+				arr.push(el.telefono1);
+				arr.push(el.telefono2);
+				arr.push(el.direccion);
+				arr.push(el.email);
+				arr.push(el.sexo);
+				arr.push(el.fecha_de_nacimiento);
+				table.fnAddData(arr);
+			});
+	});
+}
+function get_personal_asis(){
+	var name = $('#'+personalid).data('name');
+	$('#nombre_personal').text(name);
+	$.getJSON('/get_personal_inacistencia/', {id_personal: personalid}, function(json, textStatus) {
+		personal_asis.fnClearTable();
+		$.each(json,function(index, el) {
+			var arr = [],
+				condicion = el.tipo.split(' ');
+			arr.push(el.fecha);
+			arr.push(condicion[0]);
+			arr.push(condicion[1]);
+			personal_asis.fnAddData(arr);
+		});
+	});
+}
+function set_personal_asis(val){
+	$.ajax({
+		url: '/crear_inacistencia/',
+		type: 'POST',
+		data: {
+				id_personal: personalid,
+				tipo:val
+			},
+		beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+	})
+	.done(function() {
+		$('#condicion').modal('hide');
+		$('#motivos').modal('hide');
+		OmegaNotify.success('Guardado Exitoso','');
+	})
+	.fail(function() {
+		OmegaNotify.fail('Error al guardar','');
+	})
+	.always(function() {
+		$('#condicion').modal('hide');
+		$('#motivos').modal('hide');
+	});
+	
+}
+function set_id(id){
+	window.personalid= id;
+}
+function set_job(){
+	data = $('#new_job').serialize();
+	$.ajax({
+			url: 'crear_cargos/',
+			type: 'POST',
+			data: data,
+			beforeSend: function(xhr) {
+	            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+	        }
+		})
+		.done(function() {
+			$('#set_cargo').modal('hide');
+			OmegaNotify.success('Guardado Exitoso','');
+		})
+		.fail(function() {
+			$('#set_cargo').modal('hide');
+			OmegaNotify.fail('Error al Guardar','');
+		})
+		.always(function() {
+		});
+
+}
+function get_cargo(){
+	$.getJSON('/get_cargos', function(json, textStatus) {
+		jobs.fnClearTable();
+		$.each(json, function(index, val) {
+			var arr= [];
+			arr.push('<i onclick="set_id('+val.id+')" class="fa fa-pencil"></i>');
+			arr.push('<i onclick="drop_job('+val.id+')" class="fa fa-trash"></i>');
+			arr.push(val.id);
+			arr.push(val.cargo);
+			jobs.fnAddData(arr);
+		});
+	});
+}
+function drop_job(id){
+	$.ajax({
+		url: '/drop_cargos',
+		type: 'POST',
+		data: {id: id},
+		beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+	})
+	.done(function() {
+		get_cargo();
+	})
+	.fail(function() {
+		OmegaNotify.fail('Error al borrar','');
+	})
+	.always(function() {
+		get_cargo();
+	});
+	
 }

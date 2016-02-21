@@ -13,32 +13,59 @@ from django.core.mail import get_connection, send_mail, BadHeaderError
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_protect
 
-def set_cargos(request):
-    mensaje = ''
-    if not Cargos.objects.filter(nombre=request.POST['nombre']).exists():
-        cargos=  Cargos(
-                nombre=request.POST['nombre'],
-            )
-        cargos.save()
-        mensaje= 'Guardado'
-    else:
-        mensaje= 'Cargo ya existe'
+@csrf_protect
 def get_cargos(request):
     cargos = Cargo.objects.all()
     dicc = {}
     lista = []
-    for x in personal:
+    for x in cargos:
         dicc = {
-         cargo : x.nombre
+            "id" : x.id,
+            "cargo" : x.nombre,
         }
         lista.append(dicc)
     result = json.dumps(lista, ensure_ascii=False)
     return HttpResponse(result, content_type='application/json; charset=utf-8')
+
+
+def delete_cargo():
+    message =''
+    cargos = Cargo.objects.filter(id=request.POST['id'])
+    cargos.delete()
+    message ='Borrado'
+    result = json.dumps(message, ensure_ascii=False)
+    return HttpResponse(result, content_type='application/json; charset=utf-8')
+
+
+@csrf_protect
+def crear_cargos(request):
+    mensaje = ''
+    if request.method == "POST":
+        if not Cargo.objects.filter(nombre=request.POST['cargo']).exists():
+            cargo = Cargo(
+                nombre=request.POST['cargo']
+            )
+            cargo.save()
+            mensaje = 'Guardado'
+        else:
+            mensaje = 'Cargo ya Existe'
+    result = json.dumps(mensaje, ensure_ascii=False)
+    return HttpResponse(result, content_type='application/json; charset=utf-8')
+def edit_cargos(request):
+    message = ''
+    cargo = Cargoargo.objects.filter(id=request.POST['id']).update(
+            nombre=request.POST['cargo']
+        )
+    message = "Guardado"
+    result = json.dumps(mensaje, ensure_ascii=False)
+    return HttpResponse(result, content_type='application/json; charset=utf-8')
+
 @csrf_protect
 def crear_personal(request):
     mensaje = ''
     if request.method == "POST":
         if not Personal.objects.filter(cedula=request.POST['cedula']).exists():
+            cargo = Cargo.objects.get(nombre=request.POST['cargo'])
             personal = Personal(
                 cedula=request.POST['cedula'],
                 nombres=request.POST['nombre'],
@@ -49,7 +76,7 @@ def crear_personal(request):
                 email=request.POST['email'],
                 sexo=request.POST['sexo'],
                 fecha_de_nacimiento=request.POST['fecha_de_nacimiento'],
-                cargo = request.POST['cargo'],
+                cargo = cargo,
             )
             personal.save()
             mensaje = 'Guardado'
@@ -57,7 +84,6 @@ def crear_personal(request):
             mensaje = 'Alumno Ya Existe'
     result = json.dumps(mensaje, ensure_ascii=False)
     return HttpResponse(result, content_type='application/json; charset=utf-8')
-
 
 def editar_personal(request):
     mensaje = ''
@@ -76,7 +102,6 @@ def editar_personal(request):
     result = json.dumps(mensaje, ensure_ascii=False)
     return HttpResponse(result, content_type='application/json; charset=utf-8')
 
-
 def get_all_personal(request):
     personal = Personal.objects.all()
     dicc = {}
@@ -91,6 +116,7 @@ def get_all_personal(request):
             "telefono2": x.telefono2,
             "direccion": x.direccion,
             "email": x.email,
+            "cargo": str(x.cargo),
             "sexo": x.sexo,
             "fecha_de_nacimiento": str(x.fecha_de_nacimiento),
         }
@@ -117,7 +143,6 @@ def get_personal(request):
     result = json.dumps(dicc, ensure_ascii=False)
     return HttpResponse(result, content_type='application/json; charset=utf-8')
 
-
 def crear_inacistencia(request):
     mensaje = ''
     now = timezone.now().date()
@@ -130,19 +155,10 @@ def crear_inacistencia(request):
         inacistencia.save()
         mensaje = 'Guardado'
     else:
-        mensaje = 'ya registro la asistencia de hoy'
-    result = json.dumps(mensaje, ensure_ascii=False)
-    return HttpResponse(result, content_type='application/json; charset=utf-8')
-
-
-def editar_inacistencia(request):
-    mensaje = ''
-    inacistencia = Inacistencia.objects.filter(id=request.POST['id']).update(
-        personal_id=request.POST['id_personal'],
-        tipo=request.POST['tipo'],
-        fecha=request.POST['fecha'],
-    )
-    mensaje = 'Guardado'
+        inacistencia = Inacistencia.objects.filter(id=request.POST['id_personal']).update(
+            personal_id=request.POST['id_personal'],
+            tipo=request.POST['tipo'],
+        )
     result = json.dumps(mensaje, ensure_ascii=False)
     return HttpResponse(result, content_type='application/json; charset=utf-8')
 
@@ -191,35 +207,19 @@ def get_personal_inacistencia(request):
     dicc = {}
     lista = []
     inacistencia = Inacistencia.objects.filter(
-        personal_id=request.POST["id_personal"],
-        fecha__year=request.POST["year"],
-        fecha__month=request.POST["month"],
-        fecha__day=request.POST["day"],
+        personal_id=request.GET["id_personal"],
     )
     for y in inacistencia:
         dicc = {}
         dicc = {
             "id": y.id,
-            "tipo": y.tipo,
+            "tipo": y.get_type(),
             "fecha": str(y.fecha.strftime('%Y-%m-%d'))
         }
         lista.append(dicc)
-    dicc = {}
-    dicc = {
-        "id": x.id,
-        "cedula": x.cedula,
-        "nombres": x.nombres,
-        "apellidos": x.apellidos,
-        "telefono1": x.telefono1,
-        "telefono2": x.telefono2,
-        "direccion": x.direccion,
-        "email": x.email,
-        "sexo": x.sexo,
-        "fecha_de_nacimiento": str(x.fecha_de_nacimiento),
-        "asistencia": lista
-    }
-    result = json.dumps(dicc, ensure_ascii=False)
+    result = json.dumps(lista, ensure_ascii=False)
     return HttpResponse(result, content_type='application/json; charset=utf-8')
+
 class index(TemplateView):
     template_name = 'index.html'
     def get(self, request, *args, **kwargs):

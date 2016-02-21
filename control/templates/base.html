@@ -9,12 +9,15 @@
   <link rel="stylesheet" type="text/css" href="{% static  'css/font-awesome.min.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static  'css/jquery.dataTables.min.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static  'css/dataTables.bootstrap.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static  'css/buttons.dataTables.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static  'css/buttons.bootstrap.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static  'css/omega-notify.min.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static  'css/styleAR.css' %}" />
   {% block css %}{% endblock %}
 </head>
 <body>
   <br>
-  <header>
+  <header >
     <hgroup>
       <h1><img id="headimg" class="state-bar" src="{% static 'img/bar_gob2.png' %}"><img src="{% static 'img/logotrans2.png' %}" width="5%" height="100%"></h1> <br>
     </hgroup>    
@@ -28,6 +31,15 @@
   <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
   <script src="{% static 'js/dataTables.responsive.min.js' %}"></script>
+  <script src="{% static 'js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'js/buttons.flash.min.js' %}"></script>
+  <script src="{% static 'js/jszip.min.js' %}"></script>
+  <script src="{% static 'js/pdfmake.min.js' %}"></script>
+  <script src="{% static 'js/vfs_fonts.js' %}"></script>
+  <script src="{% static 'js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'js/buttons.print.min.js' %}"></script>
+  <script src="{% static 'js/buttons.colVis.min.js' %}"></script>
+  <script src="{% static 'js/omega-notify.min.js' %}"></script>
   {% block js %}{% endblock %}
 </body>
 </html>
